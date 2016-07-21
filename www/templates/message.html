@@ -1,0 +1,14 @@
+<ion-view>
+  <ion-content class="padding" scroll="true">
+    <div class="padding">
+      <label>Sasissez votre message en mettant le nom du paramètre changeant entre deux $</label>
+      <label>Par exemple, "Salut $nom$ comment tu vas??"</label>
+    </div>
+    <div class="padding">
+      <label class="item item-input">
+        <input type="text" ng-model="texte"/>
+      </label>
+      <input type="button" class="button-positive" ng-click="valider(texte)" ng-show="texte.length>0" value="Envoyer"/>
+    </div>
+  </ion-content>
+</ion-view>
