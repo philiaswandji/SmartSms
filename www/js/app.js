@@ -41,7 +41,7 @@ angular.module('starter', ['ionic','starter.controllers','starter.services','ngC
         controller:'contactsCtrl'
       })
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/contacts');
     })
 
 

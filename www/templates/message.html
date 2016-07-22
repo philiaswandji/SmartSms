@@ -1,14 +1,18 @@
-<ion-view>
+<ion-view view-title="Votre SMS">
   <ion-content class="padding" scroll="true">
-    <div class="padding">
-      <label>Sasissez votre message en mettant le nom du paramètre changeant entre deux $</label>
-      <label>Par exemple, "Salut $nom$ comment tu vas??"</label>
-    </div>
-    <div class="padding">
-      <label class="item item-input">
-        <input type="text" ng-model="texte"/>
-      </label>
-      <input type="button" class="button-positive" ng-click="valider(texte)" ng-show="texte.length>0" value="Envoyer"/>
-    </div>
+    <form class="list" ng-submit="valider(texte)">
+      <div class="padding">
+        <label>Sasissez votre message en mettant le nom du paramètre changeant entre deux $</label>
+        <label><br>Par exemple, "Salut $nom$ comment tu vas??"</label>
+      </div>
+      <div class="padding">
+        <label class="item item-input">
+          <input type="text" ng-model="texte"/>
+        </label>
+        <div class="padding">
+          <button class="button button-positive" ng-show="texte.length>0">Envoyer</button>
+        </div>
+      </div>
+    </form>
   </ion-content>
 </ion-view>
