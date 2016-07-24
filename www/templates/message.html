@@ -1,5 +1,6 @@
 <ion-view view-title="Votre SMS">
   <ion-content class="padding" scroll="true">
+    <ion-spinner icon="spiral" ng-show="showSpinner">Envoi en cours...</ion-spinner>
     <form class="list" ng-submit="valider(texte)">
       <div class="padding">
         <label>Sasissez votre message en mettant le nom du paramètre changeant entre deux $</label>
@@ -10,7 +11,7 @@
           <input type="text" ng-model="texte"/>
         </label>
         <div class="padding">
-          <button class="button button-positive" ng-show="texte.length>0">Envoyer</button>
+          <button class="button button-block button-positive" ng-show="texte.length>0">Envoyer</button>
         </div>
       </div>
     </form>

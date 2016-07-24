@@ -40,6 +40,11 @@ angular.module('starter', ['ionic','starter.controllers','starter.services','ngC
         templateUrl: 'templates/contacts.html',
         controller:'contactsCtrl'
       })
+      .state('results',{
+        url:'/results',
+        templateUrl:'templates/result.html',
+        controller:'resultCtrl'
+      })
 
     $urlRouterProvider.otherwise('/contacts');
     })
