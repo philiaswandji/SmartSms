@@ -1,14 +1,12 @@
 <ion-view view-title="Résultats d'envoi">
   <ion-content>
     <div class="list">
-
       <label class="item item-icon-right" ng-repeat="item in contacts">
         <ion-spinner icon="spiral" ng-show="item.showSpinner"></ion-spinner>
         <i class="ion ion-android-done balanced col-20" ng-show="item.success"></i>
         <i class="ion ion-android-close assertive" ng-show="item.fail"></i>
         {{item.displayName}}
       </label>
-      <button class="button button-block button-positive" class="button-positive" ng-click="show()">Suivant</button>
     </div>
   </ion-content>
 </ion-view>

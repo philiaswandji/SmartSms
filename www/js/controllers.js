@@ -59,6 +59,13 @@ angular.module('starter.controllers', [])
     }
     console.log($scope.contacts);
     $scope.fin=true;*/
+    $scope.hasPhoneNumber = function(contact){
+        if(contact.phoneNumbers!=null){
+          return true;
+        }
+        else{return false;}
+
+    }
     var contacts = [];
     //$scope.fin="debut";
     $ionicPlatform.ready(function(){
@@ -67,19 +74,14 @@ angular.module('starter.controllers', [])
         template:"Chargement de vos contacts ... "
       })
       $cordovaContacts.find({filter: '',multiple:true}).then(function (allContacts) { //omitting parameter to .find() causes all contacts to be returned
-        $scope.contacts = allContacts;
-        $ionicLoading.hide();
-        $scope.taille=allContacts.length;
-        $scope.ind=0;
-        var i=0;
-        /*allContacts.forEach(function(contact){
+        //$scope.contacts = allContacts;
+        allContacts.forEach(function(contact){
           $scope.actu=contact.displayName;
-          if(contact.hasOwnProperty("phoneNumbers") ){  //We use only contacts which have at least one phone number
-            if(contact['phoneNumbers'].length>0){
+          if(contact.phoneNumbers!=null){
               $scope.contacts.push(contact);
-            }
-          }else{}
-        })*/
+          }
+        })
+        $ionicLoading.hide();
       },function(error){
         $ionicLoading.hide();
         alert('Error : '+error);
@@ -100,31 +102,37 @@ angular.module('starter.controllers', [])
     $scope.contacts = ContactService.finalContacts;
     console.log($scope.contacts);
     var texte = MessageService.texte;
-    /*$scope.contacts = [
-      {
-        displayName:"Philias",
-        "name":{
-          givenName:"Philias",
-          formatted:"Philias"
-        },
-        nickname:"Wandji",
-        phoneNumbers:[
-          {
-            id:"1",
-            pref:"false",
-            value:"555-4",
-            type:"mobile"
-          }]},{
-        displayName:"a",
-        "name":{
-          givenName:"Philias",
-          formatted:"Philias"
-        },
-        nickname:"Wandji",
-        phoneNumbers:[]}
-
-
-
-    ];*/
     MessageService.send($scope.contacts,ContactService,texte,0);
   })
+
+.controller('accueilCtrl',function($scope,$state){
+      $scope.chooseFile = function(path){
+        console.log("je suis ici");
+        $state.go('selectfile');
+      }
+  })
+
+.controller('selectFileCtrl',function($scope, $ionicPlatform, $fileFactory){
+
+  var fs = new $fileFactory();
+
+  $ionicPlatform.ready(function() {
+    fs.getEntriesAtRoot().then(function(result) {
+      $scope.files = result;
+    }, function(error) {
+      console.error(error);
+    });
+
+    $scope.getContents = function(path) {
+      fs.getEntries(path).then(function(result) {
+        $scope.files = result;
+        $scope.files.unshift({name: "[parent]"});
+        fs.getParentDirectory(path).then(function(result) {
+          result.name = "[parent]";
+          $scope.files[0] = result;
+        });
+      });
+    }
+  });
+
+})

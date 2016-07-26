@@ -4,8 +4,10 @@
     <file url="file://$PROJECT_DIR$/www/js/app.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/js/controllers.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/js/services.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/templates/accueil.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/templates/contacts.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/templates/message.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/templates/result.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/templates/selectFile.html" charset="UTF-8" />
   </component>
 </project>

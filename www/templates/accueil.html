@@ -1,0 +1,15 @@
+<ion-view view-title="Accueil">
+  <ion-content>
+    <h4>Veuillez choisir la source de vos destinataires</h4>
+    <div class="padding">
+        <ion-radio ng-model="source" ng-value="0">Depuis vos contacts</ion-radio>
+        <ion-radio ng-model="source" ng-value="1">Importer un fichier</ion-radio>
+    </div>
+    <div class="padding">
+      <button class="button icon-left ion-folder button-positive"  ng-show="source==1" ng-click="chooseFile(path)">Selectionner un fichier</button>
+    </div>
+    <div class="padding">
+      <a class="button button-positive"  ng-show="source==0" ui-sref="contacts">Selectionner les contacts</a>
+    </div>
+  </ion-content>
+</ion-view>

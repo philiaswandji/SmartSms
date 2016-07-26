@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic','starter.controllers','starter.services','ngCordova'])
+angular.module('starter', ['ionic','starter.controllers','starter.services','ngCordova','ion-alpha-scroll'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -45,8 +45,18 @@ angular.module('starter', ['ionic','starter.controllers','starter.services','ngC
         templateUrl:'templates/result.html',
         controller:'resultCtrl'
       })
+      .state('accuil',{
+        url:'/accueil',
+        templateUrl:'templates/accueil.html',
+        controller:'accueilCtrl'
+      })
+      .state('selectfile',{
+        url:'/selectfile',
+        templateUrl:'templates/selectFile.html',
+        controller:'selectFileCtrl'
+      })
 
-    $urlRouterProvider.otherwise('/contacts');
+    $urlRouterProvider.otherwise('/accueil');
     })
 
 

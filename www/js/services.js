@@ -100,3 +100,65 @@
       }
     })
 
+    .factory("$fileFactory", function($q) {
+
+      var File = function() { };
+
+      File.prototype = {
+
+        getParentDirectory: function(path) {        //Get the parent of the current directory
+          var deferred = $q.defer();
+          window.resolveLocalFileSystemURI(path, function(fileSystem) {
+            fileSystem.getParent(function(result) {
+              deferred.resolve(result);
+            }, function(error) {
+              deferred.reject(error);
+              console.log(error);
+            });
+          }, function(error) {
+            deferred.reject(error);
+            console.log(error);
+          });
+          return deferred.promise;
+        },
+
+        getEntriesAtRoot: function() {          //Get all the files and directories at the root of the phone
+          var deferred = $q.defer();
+          window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+            var directoryReader = fileSystem.root.createReader();
+            directoryReader.readEntries(function(entries) {
+              deferred.resolve(entries);
+            }, function(error) {
+              deferred.reject(error);
+              console.log(error);
+            });
+          }, function(error) {
+            deferred.reject(error);
+            console.log(error);
+          });
+          return deferred.promise;
+        },
+
+        getEntries: function(path) {          //Get all the entries at the current directory
+          var deferred = $q.defer();
+          window.resolveLocalFileSystemURI(path, function(fileSystem) {
+            var directoryReader = fileSystem.createReader();
+            directoryReader.readEntries(function(entries) {
+              deferred.resolve(entries);
+            }, function(error) {
+              deferred.reject(error);
+              console.log(error);
+            });
+          }, function(error) {
+            deferred.reject(error);
+            console.log(error);
+          });
+          return deferred.promise;
+        }
+
+      };
+
+      return File;
+
+    })
+

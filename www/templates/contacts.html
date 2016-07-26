@@ -1,15 +1,22 @@
 <ion-view view-title="Selectionner les contacts">
   <ion-content>
-    <div class="bar-header">
-      <button class="button button-block button-positive" class="button-positive"  ng-click="suivant()">Suivant</button>
-    </div>
     <div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Rechercher" ng-model="searchText">
+      </label>
       <div class="list">
-        <ion-checkbox class="item" ng-repeat="item in contacts | orderBy :'displayName'" ng-model="item.checked" ng-checked="item.checked">
+        <ion-checkbox class="item" ng-repeat="item in contacts | orderBy :'displayName' | filter:searchText " ng-model="item.checked" ng-checked="item.checked">
           <h2>{{item.displayName}}</h2>
           <p>{{item.phoneNumbers[0].value}}</p>
         </ion-checkbox>
       </div>
     </div>
   </ion-content>
+  <ion-footer-bar>
+    <div class="bar bar-footer">
+      <button class="button button-full button-positive" type="submit" ng-click="suivant()">
+        Suivant
+      </button>
+    </div>
+  </ion-footer-bar>
 </ion-view>
