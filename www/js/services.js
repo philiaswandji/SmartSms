@@ -1,12 +1,18 @@
 
-
+var translate = function(string){
+  if(string=='nickname'){
+    return 'prenom';
+  }
+  else if(string=='displayName'){
+    return 'nom';
+  }
+  else{
+    return string;
+  }
+}
   angular.module('starter.services', [])
 
   .factory('MessageService',function($cordovaSms,$ionicPlatform){
-      var translate = {
-        "nickname":"prenom",
-        "displayName":"nom"
-      };
       var options = {
         replaceLineBreaks: false, // true to replace \n by a new line, false by default
         android: {
@@ -22,12 +28,11 @@
         }else if(i>=0){
           var ntexte = texte;
           ContactService.fields.forEach(function(value){
-            var t = '$'+translate[value]+'$';
+            var t = '$'+translate(value)+'$';
             ntexte = ntexte.replace(t,contacts[i][value]);
           })
           console.log(ntexte);
           $ionicPlatform.ready(function(){
-            console.log("on envoi pour le "+i);
             //recSend(contacts,ContactService,texte,i+1);
             contacts[i].showSpinner=true;
             contacts[i].success=false;
@@ -52,7 +57,6 @@
       texte:'',
       send:function(contacts,ContactService,texte){
         recSend(contacts,ContactService,texte,0);
-        console.log("Envoi termine");
       },
       setText:function(texte){
         this.texte=texte;
@@ -64,6 +68,23 @@
       return {
         fields: ['nom', 'tel'],     //The differents fields of a contact, or a recipient, if using contacts of the phone
         phoneField:'',
+        source:0,
+        setSource : function(source){
+          this.source = source;
+        },
+        getFinalFields : function(){
+          if(this.source==0){
+            var fields = [];
+            this.fields = this.getFieldsFromContact(this.finalContacts[0]);
+            this.fields.forEach(function(val){
+              fields.push(translate(val));
+            })
+            return fields;
+          }
+          else if(this.source==1){
+            return this.getFieldsFromFile();
+          }
+        },
         setPhoneField:function(phoneField){
           this.phoneField=phoneField;
         },

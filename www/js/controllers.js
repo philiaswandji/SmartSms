@@ -11,13 +11,27 @@ function getSelected(allContacts){
 }
 angular.module('starter.controllers', [])
 
-.controller('messageCtrl',function($scope,MessageService,$state){
+.controller('messageCtrl',function($scope,MessageService,ContactService,$state,$ionicModal){
 
-    $scope.showSpinner = false;
-    $scope.valider=function(texte){
-      MessageService.setText(texte);
+    $scope.obj={};
+    $scope.obj.texte='';
+    $scope.texte='';
+    $scope.fields = ContactService.getFinalFields();
+    $scope.valider=function(){
+      console.log($scope.obj.texte);
+      MessageService.setText($scope.obj.texte);
       $state.go('results');
     };
+    $ionicModal.fromTemplateUrl('templates/modal.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.insField = function(field){
+      $scope.obj.texte+=' $'+field+'$ ';
+      $scope.modal.hide();
+      console.log($scope.obj.texte);
+    }
   })
 
 .controller('contactsCtrl',function($scope,$ionicLoading,ContactService,$state,$cordovaContacts,$ionicPlatform){
@@ -98,18 +112,25 @@ angular.module('starter.controllers', [])
     }
   })
 
-.controller('resultCtrl',function($scope,ContactService,MessageService){
+.controller('resultCtrl',function($scope,ContactService,MessageService,$state){
     $scope.contacts = ContactService.finalContacts;
     console.log($scope.contacts);
     var texte = MessageService.texte;
     MessageService.send($scope.contacts,ContactService,texte,0);
+    $scope.restart = function(){
+      $state.go('accueil');
+    }
   })
 
-.controller('accueilCtrl',function($scope,$state){
+.controller('accueilCtrl',function($scope,$state,ContactService){
       $scope.chooseFile = function(path){
         console.log("je suis ici");
         $state.go('selectfile');
       }
+    $scope.selectContacts = function(){
+      ContactService.setSource(0);
+      $state.go('contacts');
+    }
   })
 
 .controller('selectFileCtrl',function($scope, $ionicPlatform, $fileFactory){

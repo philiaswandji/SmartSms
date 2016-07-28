@@ -45,7 +45,7 @@ angular.module('starter', ['ionic','starter.controllers','starter.services','ngC
         templateUrl:'templates/result.html',
         controller:'resultCtrl'
       })
-      .state('accuil',{
+      .state('accueil',{
         url:'/accueil',
         templateUrl:'templates/accueil.html',
         controller:'accueilCtrl'
